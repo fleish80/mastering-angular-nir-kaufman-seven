@@ -121,8 +121,13 @@
               "devServerTarget": "mastering-angular-nir-kaufman-seven:serve:production"
             }
           }
+        },
+        "deploy": {
+          "builder": "@angular/fire:deploy",
+          "options": {}
         }
       }
-    }},
+    }
+  },
   "defaultProject": "mastering-angular-nir-kaufman-seven"
 }

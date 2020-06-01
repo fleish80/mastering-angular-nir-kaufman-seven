@@ -1,0 +1,11 @@
+{
+  "targets": {
+    "ng-il-club-2ef3a": {
+      "hosting": {
+        "mastering-angular-nir-kaufman-seven": [
+          "ng-il-club-2ef3a"
+        ]
+      }
+    }
+  }
+}

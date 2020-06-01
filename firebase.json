@@ -1,0 +1,19 @@
+{
+  "hosting": [
+    {
+      "target": "mastering-angular-nir-kaufman-seven",
+      "public": "dist/mastering-angular-nir-kaufman-seven",
+      "ignore": [
+        "firebase.json",
+        "**/.*",
+        "**/node_modules/**"
+      ],
+      "rewrites": [
+        {
+          "source": "**",
+          "destination": "/index.html"
+        }
+      ]
+    }
+  ]
+}
