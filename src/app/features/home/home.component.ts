@@ -14,4 +14,9 @@ export class HomeComponent implements OnInit {
   signInWithGoogle() {
     this.authService.signInWithGoogle();
   }
+
+  signOut() {
+    console.log('sign out');
+    this.authService.signOut();
+  }
 }
