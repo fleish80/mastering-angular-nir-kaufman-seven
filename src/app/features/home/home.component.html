@@ -1,7 +1,22 @@
-<button (click)="signInWithGoogle()" class="btn btn-lg btn-primary">
-    Sign in with google <i class="fa fa-google ml-3"></i>
-</button>
+<ng-container
+  *ngIf="currentUser$ | async as user; then memberTemplate; else loginButton"
+></ng-container>
 
-<button (click)="signOut()" class="btn btn-lg btn-outline-danger ml-5">
+<ng-template #loginButton>
+  <button (click)="signInWithGoogle()" class="btn btn-lg btn-primary">
+    Sign in with google <i class="fa fa-google ml-3"></i>
+  </button>
+</ng-template>
+
+<ng-template #memberTemplate let-user>
+  <div class="card">
+    <div class="card-body">
+      <img [src]="user.image_url" alt="" />
+      <h5 class="card-title">{{ user.display_name }}</h5>
+    </div>
+  </div>
+
+  <button (click)="signOut()" class="btn btn-lg btn-outline-danger ml-5">
     Sign out <i class="fa fa-google ml-5"></i>
-</button>
+  </button>
+</ng-template>

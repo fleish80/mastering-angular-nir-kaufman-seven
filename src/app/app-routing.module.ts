@@ -8,6 +8,11 @@ const routes: Routes = [
     loadChildren: () =>
       import('./features/home/home.module').then((m) => m.HomeModule),
   },
+  {
+    path: 'members',
+    loadChildren: () =>
+      import('./features/members/members.module').then((m) => m.MembersModule),
+  },
 ];
 
 @NgModule({

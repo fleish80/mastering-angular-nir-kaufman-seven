@@ -2,10 +2,12 @@ import { Injectable } from '@angular/core';
 import { AngularFireAuth } from '@angular/fire/auth';
 import { AngularFirestore, AngularFirestoreDocument } from '@angular/fire/firestore';
 import { Router } from '@angular/router';
-import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import * as firebase from 'firebase';
+import {switchMap} from 'rxjs/operators';
+import { User as FirebaseUser } from 'firebase';
 
-interface User {
+export interface User {
   uid: string;
   email: string;
   display_name: string;
@@ -23,7 +25,17 @@ export class AuthService {
     private angularFireAuth: AngularFireAuth,
     private angularFirestore: AngularFirestore,
     private router: Router
-  ) {}
+  ) {
+    this.currentUser$ = angularFireAuth.authState.pipe(
+      switchMap((user: FirebaseUser) => {
+        if (user) {
+          return angularFirestore.doc<User>(`users/${user.uid}`).valueChanges();
+        } else {
+          return of(null);
+        }
+      })
+    )
+  }
 
   async signInWithGoogle(): Promise<void> {
     const provider = new firebase.auth.GoogleAuthProvider();
@@ -36,11 +48,12 @@ export class AuthService {
       image_url: credetionals.user.photoURL,
       roles: {memeber: true}
     };
-
+    await this.router.navigate(['/members']);
     return userRef.set(userData, {merge: true});
   }
 
   async signOut() {
     await this.angularFireAuth.signOut();
+    await this.router.navigate(['/home']);
   }
 }

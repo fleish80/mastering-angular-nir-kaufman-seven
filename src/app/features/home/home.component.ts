@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../core/services/auth.service';
+import { AuthService, User } from '../../core/services/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-home',
@@ -7,16 +8,19 @@ import { AuthService } from '../../core/services/auth.service';
   styleUrls: ['./home.component.scss'],
 })
 export class HomeComponent implements OnInit {
+  currentUser$: Observable<User>;
+
   constructor(private authService: AuthService) {}
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.currentUser$ = this.authService.currentUser$;
+  }
 
   signInWithGoogle() {
     this.authService.signInWithGoogle();
   }
 
   signOut() {
-    console.log('sign out');
     this.authService.signOut();
   }
 }
